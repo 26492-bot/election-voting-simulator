@@ -155,46 +155,33 @@ export default function SetupPage() {
 
   return (
     <div className="min-h-screen bg-[var(--color-surface)] flex items-center justify-center p-4 sm:p-6 md:p-8">
-      {/* Background decoration */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 rounded-full bg-[var(--color-primary-200)] opacity-20 blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 rounded-full bg-[var(--color-accent-200)] opacity-15 blur-3xl" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[var(--color-primary-100)] opacity-10 blur-3xl" />
-      </div>
+
 
       <div className="relative w-full max-w-3xl animate-fade-in-up">
         {/* Header */}
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[var(--color-primary-100)] text-[var(--color-primary-700)] text-sm font-medium mb-4">
-            <BarChart3 size={16} />
-            <span>โครงงานคณิตศาสตร์</span>
-          </div>
-          <h1 className="text-3xl sm:text-4xl font-serif font-bold text-[var(--color-primary-950)] mb-2">
+        <div className="mb-6">
+          <p className="text-xs text-slate-400 uppercase tracking-widest mb-1">โครงงานคณิตศาสตร์</p>
+          <h1 className="text-2xl sm:text-3xl font-serif font-bold text-slate-900">
             ตั้งค่าการเลือกตั้ง
           </h1>
-          <p className="text-[var(--color-primary-600)] font-medium text-lg">
-            Election Setup
-          </p>
-          <p className="text-slate-500 text-sm mt-2 max-w-md mx-auto">
-            กำหนดจำนวนผู้มีสิทธิเลือกตั้ง ผู้สมัคร และวิธีการกรอกข้อมูลคะแนนเสียง
+          <p className="text-slate-500 text-sm mt-1">
+            กำหนดจำนวนผู้มีสิทธิเลือกตั้ง ผู้สมัคร และวิธีการกรอกข้อมูลคะแนน
           </p>
         </div>
 
         {/* Main Card */}
-        <div className="bg-[var(--color-surface-card)] rounded-[var(--radius-card)] shadow-[var(--shadow-card)] border border-slate-200/60 overflow-hidden">
-          {/* Card Header */}
-          <div className="bg-gradient-to-r from-[var(--color-primary-600)] to-[var(--color-primary-800)] px-6 py-4">
-            <div className="flex items-center gap-3 text-white">
-              <div className="p-2 bg-white/20 rounded-lg backdrop-blur-sm">
-                <Settings2 size={20} />
-              </div>
-              <div>
-                <h2 className="font-serif font-bold text-lg">ข้อมูลพื้นฐาน</h2>
-                <p className="text-primary-200 text-sm opacity-80">
-                  Basic Configuration
-                </p>
-              </div>
-            </div>
+        <div className="bg-[var(--color-surface-card)] rounded-[var(--radius-card)] border border-slate-200 overflow-hidden">
+          {/* Card Header - Clean white */}
+          <div className="px-6 pt-5 pb-0 flex items-center justify-between">
+            <h2 className="font-serif font-bold text-lg text-slate-800">ข้อมูลพื้นฐาน</h2>
+            {election && (
+              <button
+                onClick={() => setShowResetConfirm(true)}
+                className="text-xs text-slate-400 hover:text-red-500 transition-colors"
+              >
+                รีเซ็ต
+              </button>
+            )}
           </div>
 
           <div className="p-6 space-y-6">
@@ -214,9 +201,8 @@ export default function SetupPage() {
 
             {/* Voter Count */}
             <div className="space-y-2">
-              <label className="flex items-center gap-2 text-sm font-bold text-slate-700">
+              <label className="block text-sm font-bold text-slate-700">
                 จำนวนผู้มีสิทธิเลือกตั้ง
-                <span className="text-slate-400 font-normal">— Number of Voters</span>
               </label>
               <div className="relative">
                 <input
@@ -243,9 +229,8 @@ export default function SetupPage() {
 
             {/* Candidate Count */}
             <div className="space-y-2">
-              <label className="flex items-center gap-2 text-sm font-bold text-slate-700">
+              <label className="block text-sm font-bold text-slate-700">
                 จำนวนผู้สมัคร
-                <span className="text-slate-400 font-normal">— Number of Candidates</span>
               </label>
               <div className="relative">
                 <input
@@ -276,9 +261,8 @@ export default function SetupPage() {
             {/* Candidate Names */}
             {candidateCount >= 2 && candidateCount <= 26 && (
               <div className="space-y-3 animate-fade-in">
-                <label className="flex items-center gap-2 text-sm font-bold text-slate-700">
+                <label className="block text-sm font-bold text-slate-700">
                   ชื่อผู้สมัคร
-                  <span className="text-slate-400 font-normal">— Candidate Names</span>
                 </label>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 stagger-children">
@@ -310,10 +294,8 @@ export default function SetupPage() {
 
             {/* Data Entry Mode */}
             <div className="space-y-3">
-              <label className="flex items-center gap-2 text-sm font-semibold text-slate-700">
-                <Vote size={16} className="text-[var(--color-primary-500)]" />
+              <label className="block text-sm font-bold text-slate-700">
                 วิธีการกรอกข้อมูลคะแนน
-                <span className="text-slate-400 font-normal">— Data Entry Mode</span>
               </label>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -336,7 +318,7 @@ export default function SetupPage() {
                       ? 'bg-[var(--color-primary-100)]'
                       : 'bg-slate-100 group-hover:bg-slate-200'
                   } transition-colors`}>
-                    <Sparkles size={20} className={
+                    <Shuffle size={20} className={
                       dataEntryMode === 'auto'
                         ? 'text-[var(--color-primary-600)]'
                         : 'text-slate-500'
@@ -347,10 +329,10 @@ export default function SetupPage() {
                       ? 'text-[var(--color-primary-800)]'
                       : 'text-slate-700'
                   }`}>
-                    สร้างข้อมูลจำลองอัตโนมัติ
+                    สุ่มข้อมูลอัตโนมัติ
                   </h3>
                   <p className="text-xs text-slate-400 mt-0.5">
-                    Auto Generate Ballots
+                    ระบบจะสร้างบัตรลงคะแนนให้
                   </p>
                 </button>
 
@@ -387,7 +369,7 @@ export default function SetupPage() {
                     กรอกข้อมูลด้วยตนเอง
                   </h3>
                   <p className="text-xs text-slate-400 mt-0.5">
-                    Manual Ballot Entry
+                    กรอกอันดับความชอบทีละคน
                   </p>
                 </button>
               </div>
@@ -395,26 +377,15 @@ export default function SetupPage() {
 
             {/* Removed Auto Generate Options UI as requested */}
 
-            {/* Action Buttons */}
-            <div className="flex flex-col sm:flex-row gap-3 pt-4">
+            {/* Action Button */}
+            <div className="pt-4">
               <button
                 onClick={handleSubmit}
-                className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-[var(--radius-button)] bg-gradient-to-r from-[var(--color-primary-600)] to-[var(--color-primary-700)] text-white font-semibold text-base shadow-[var(--shadow-button)] hover:from-[var(--color-primary-700)] hover:to-[var(--color-primary-800)] hover:shadow-md active:scale-[0.98] transition-all duration-200"
+                className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-[var(--radius-button)] bg-slate-800 text-white font-semibold text-base hover:bg-slate-900 active:scale-[0.98] transition-all duration-200"
               >
-                <Vote size={20} />
-                สร้างการเลือกตั้ง
+                เริ่มจำลองการเลือกตั้ง
                 <ChevronRight size={18} />
               </button>
-
-              {election && (
-                <button
-                  onClick={() => setShowResetConfirm(true)}
-                  className="inline-flex items-center justify-center gap-2 px-4 py-3.5 rounded-[var(--radius-button)] border border-red-200 text-red-600 font-medium text-sm hover:bg-red-50 active:scale-[0.98] transition-all duration-200"
-                >
-                  <Trash2 size={16} />
-                  ล้างข้อมูล
-                </button>
-              )}
             </div>
 
 
