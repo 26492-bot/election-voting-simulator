@@ -169,8 +169,8 @@ export default function SetupPage() {
             <BarChart3 size={16} />
             <span>โครงงานคณิตศาสตร์</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-bold text-[var(--color-primary-950)] mb-2">
-            🗳️ ตั้งค่าการเลือกตั้ง
+          <h1 className="text-3xl sm:text-4xl font-serif font-bold text-[var(--color-primary-950)] mb-2">
+            ตั้งค่าการเลือกตั้ง
           </h1>
           <p className="text-[var(--color-primary-600)] font-medium text-lg">
             Election Setup
@@ -189,7 +189,7 @@ export default function SetupPage() {
                 <Settings2 size={20} />
               </div>
               <div>
-                <h2 className="font-semibold text-lg">ข้อมูลพื้นฐาน</h2>
+                <h2 className="font-serif font-bold text-lg">ข้อมูลพื้นฐาน</h2>
                 <p className="text-primary-200 text-sm opacity-80">
                   Basic Configuration
                 </p>
@@ -214,8 +214,7 @@ export default function SetupPage() {
 
             {/* Voter Count */}
             <div className="space-y-2">
-              <label className="flex items-center gap-2 text-sm font-semibold text-slate-700">
-                <Users size={16} className="text-[var(--color-primary-500)]" />
+              <label className="flex items-center gap-2 text-sm font-bold text-slate-700">
                 จำนวนผู้มีสิทธิเลือกตั้ง
                 <span className="text-slate-400 font-normal">— Number of Voters</span>
               </label>
@@ -244,8 +243,7 @@ export default function SetupPage() {
 
             {/* Candidate Count */}
             <div className="space-y-2">
-              <label className="flex items-center gap-2 text-sm font-semibold text-slate-700">
-                <UserPlus size={16} className="text-[var(--color-primary-500)]" />
+              <label className="flex items-center gap-2 text-sm font-bold text-slate-700">
                 จำนวนผู้สมัคร
                 <span className="text-slate-400 font-normal">— Number of Candidates</span>
               </label>
@@ -278,8 +276,7 @@ export default function SetupPage() {
             {/* Candidate Names */}
             {candidateCount >= 2 && candidateCount <= 26 && (
               <div className="space-y-3 animate-fade-in">
-                <label className="flex items-center gap-2 text-sm font-semibold text-slate-700">
-                  <PenLine size={16} className="text-[var(--color-primary-500)]" />
+                <label className="flex items-center gap-2 text-sm font-bold text-slate-700">
                   ชื่อผู้สมัคร
                   <span className="text-slate-400 font-normal">— Candidate Names</span>
                 </label>

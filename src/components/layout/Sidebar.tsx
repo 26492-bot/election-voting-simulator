@@ -26,7 +26,6 @@ interface MethodItem {
   number: string;
   title: string;
   subtitle: string;
-  icon: React.ReactNode;
   color: string;
   activeBg: string;
 }
@@ -37,7 +36,6 @@ const METHODS: MethodItem[] = [
     number: '①',
     title: 'Plurality Voting',
     subtitle: 'ระบบเสียงข้างมาก',
-    icon: <BarChart3 size={18} />,
     color: 'text-blue-600',
     activeBg: 'from-blue-500 to-blue-600',
   },
@@ -46,7 +44,6 @@ const METHODS: MethodItem[] = [
     number: '②',
     title: 'Borda Count',
     subtitle: 'ระบบรวมคะแนนตามอันดับ',
-    icon: <ListOrdered size={18} />,
     color: 'text-emerald-600',
     activeBg: 'from-emerald-500 to-emerald-600',
   },
@@ -55,7 +52,6 @@ const METHODS: MethodItem[] = [
     number: '③',
     title: 'Instant Runoff (IRV)',
     subtitle: 'ระบบคัดออกและโอนคะแนน',
-    icon: <IterationCcw size={18} />,
     color: 'text-orange-600',
     activeBg: 'from-orange-500 to-orange-600',
   },
@@ -64,7 +60,6 @@ const METHODS: MethodItem[] = [
     number: '④',
     title: 'Condorcet Method',
     subtitle: 'ระบบเปรียบเทียบคู่\nCopeland\'s Rule',
-    icon: <GitCompareArrows size={18} />,
     color: 'text-purple-600',
     activeBg: 'from-purple-500 to-purple-600',
   },
@@ -107,14 +102,9 @@ export default function Sidebar({ currentMethod, onMethodChange, onNavigate }: S
                     : 'hover:bg-white/8 active:bg-white/12'
                 }`}
               >
-                <div className={`shrink-0 mt-0.5 p-1.5 rounded-lg transition-colors ${
-                  isActive ? 'bg-white/20' : 'bg-white/5 group-hover:bg-white/10'
-                }`}>
-                  {m.icon}
-                </div>
-                <div className="min-w-0 flex-1">
-                  <div className="flex items-center gap-1.5">
-                    <span className="text-xs opacity-60">{m.number}</span>
+                <div className="min-w-0 flex-1 pl-1">
+                  <div className="flex items-center gap-2">
+                    <span className={`text-base font-serif font-bold ${isActive ? 'text-white' : 'text-slate-400 group-hover:text-white'}`}>{m.number}</span>
                     <span className={`text-[13px] font-semibold truncate ${
                       isActive ? 'text-white' : 'text-slate-300 group-hover:text-white'
                     }`}>
