@@ -71,7 +71,7 @@ export default function CondorcetMatrix({ output }: CondorcetMatrixProps) {
             <AlertTriangle size={18} className="text-amber-600 mt-0.5" />
             <div>
               <p className="text-sm font-semibold text-amber-800">
-                ⚠️ ผลเสมอ (Overall Tie)
+                ⚠ ผลเสมอ (Overall Tie)
               </p>
               <p className="text-xs text-amber-600 mt-0.5">
                 <span className="font-bold">{output.winnerNames.join(' และ ')}</span> มี Copeland Score สูงสุดเท่ากัน
@@ -91,7 +91,7 @@ export default function CondorcetMatrix({ output }: CondorcetMatrixProps) {
       {/* Pairwise Matrix */}
       <div className="bg-[var(--color-surface-card)] rounded-[var(--radius-card)] shadow-[var(--shadow-card)] border border-slate-200/60 overflow-hidden">
         <div className="px-5 py-4 border-b border-slate-100">
-          <h3 className="text-sm font-bold text-slate-800">🔢 ตาราง Pairwise Comparison</h3>
+          <h3 className="text-sm font-bold text-slate-800"> ตาราง Pairwise Comparison</h3>
           <p className="text-[11px] text-slate-400 mt-0.5">Head-to-Head Comparison Matrix</p>
         </div>
         <div className="p-4 overflow-x-auto">
@@ -148,7 +148,7 @@ export default function CondorcetMatrix({ output }: CondorcetMatrixProps) {
       {/* Copeland Scores Bar Chart */}
       <div className="bg-[var(--color-surface-card)] rounded-[var(--radius-card)] shadow-[var(--shadow-card)] border border-slate-200/60 overflow-hidden">
         <div className="px-5 py-4 border-b border-slate-100">
-          <h3 className="text-sm font-bold text-slate-800">📊 Copeland Score</h3>
+          <h3 className="text-sm font-bold text-slate-800"> Copeland Score</h3>
           <p className="text-[11px] text-slate-400 mt-0.5">ชนะ = +1 / เสมอ = 0 / แพ้ = -1</p>
         </div>
 
@@ -216,7 +216,7 @@ export default function CondorcetMatrix({ output }: CondorcetMatrixProps) {
       {/* Pairwise Results */}
       <div className="bg-[var(--color-surface-card)] rounded-[var(--radius-card)] shadow-[var(--shadow-card)] border border-slate-200/60 overflow-hidden">
         <div className="px-5 py-4 border-b border-slate-100">
-          <h3 className="text-sm font-bold text-slate-800">⚔️ ผลการเปรียบเทียบคู่</h3>
+          <h3 className="text-sm font-bold text-slate-800">⚔ ผลการเปรียบเทียบคู่</h3>
           <p className="text-[11px] text-slate-400 mt-0.5">Pairwise Results</p>
         </div>
         <div className="p-4 overflow-x-auto">

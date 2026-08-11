@@ -44,7 +44,7 @@ export default function ResultsPage() {
     return (
       <div className="min-h-screen bg-[var(--color-surface)] flex items-center justify-center p-8">
         <div className="bg-white rounded-[var(--radius-card)] shadow-[var(--shadow-card)] p-8 text-center max-w-md">
-          <h1 className="text-2xl font-bold text-[var(--color-primary-800)] mb-2">🏆 เปรียบเทียบผล</h1>
+          <h1 className="text-2xl font-bold text-[var(--color-primary-800)] mb-2"> เปรียบเทียบผล</h1>
           <p className="text-slate-500 mb-4">กรุณาตั้งค่าการเลือกตั้งก่อน</p>
           <button
             onClick={() => navigate('/setup')}
@@ -73,7 +73,7 @@ export default function ResultsPage() {
           </button>
           <div>
             <h1 className="text-lg sm:text-xl font-bold text-[var(--color-primary-950)]">
-              🏆 ผลการเลือกตั้ง
+               ผลการเลือกตั้ง
             </h1>
             <p className="text-xs text-slate-500">Election Results</p>
           </div>
@@ -114,7 +114,7 @@ export default function ResultsPage() {
         <section className="bg-[var(--color-surface-card)] rounded-[var(--radius-card)] shadow-[var(--shadow-card)] border border-slate-200/60 overflow-hidden animate-fade-in">
           <div className="px-6 py-5 border-b border-slate-100 bg-gradient-to-r from-indigo-50 to-purple-50">
             <h2 className="text-lg font-bold text-[var(--color-primary-900)]">
-              📊 Plurality Voting — ระบบเสียงข้างมาก
+               Plurality Voting — ระบบเสียงข้างมาก
             </h2>
             <p className="text-xs text-slate-500 mt-1">นับเฉพาะผู้สมัครอันดับ 1 ของผู้มีสิทธิเลือกตั้งแต่ละคน</p>
           </div>
@@ -133,7 +133,7 @@ export default function ResultsPage() {
                       ? 'bg-amber-100'
                       : 'bg-indigo-100'
                   }`}>
-                    {pluralityOutput.isTie ? '⚠️' : '🏆'}
+                    {pluralityOutput.isTie ? '⚠' : ''}
                   </div>
                   <div className="flex-1">
                     {pluralityOutput.isTie ? (
@@ -236,7 +236,7 @@ export default function ResultsPage() {
         <section className="bg-[var(--color-surface-card)] rounded-[var(--radius-card)] shadow-[var(--shadow-card)] border border-slate-200/60 overflow-hidden animate-fade-in">
           <div className="px-6 py-5 border-b border-slate-100 bg-gradient-to-r from-emerald-50 to-teal-50">
             <h2 className="text-lg font-bold text-emerald-900">
-              📈 Borda Count — ระบบรวมคะแนนตามอันดับ
+               Borda Count — ระบบรวมคะแนนตามอันดับ
             </h2>
             <p className="text-xs text-slate-500 mt-1">ให้คะแนนตามลำดับความชอบ (อันดับ 1 ได้ N คะแนน, อันดับสุดท้ายได้ 1 คะแนน)</p>
           </div>
@@ -255,7 +255,7 @@ export default function ResultsPage() {
                       ? 'bg-amber-100'
                       : 'bg-emerald-100'
                   }`}>
-                    {bordaOutput.isTie ? '⚠️' : '🏆'}
+                    {bordaOutput.isTie ? '⚠' : ''}
                   </div>
                   <div className="flex-1">
                     {bordaOutput.isTie ? (
@@ -358,7 +358,7 @@ export default function ResultsPage() {
         <section className="bg-[var(--color-surface-card)] rounded-[var(--radius-card)] shadow-[var(--shadow-card)] border border-slate-200/60 overflow-hidden animate-fade-in">
           <div className="px-6 py-5 border-b border-slate-100 bg-gradient-to-r from-orange-50 to-amber-50">
             <h2 className="text-lg font-bold text-orange-900">
-              🔄 Instant Runoff Voting (IRV) — ระบบคัดออกและโอนคะแนน
+               Instant Runoff Voting (IRV) — ระบบคัดออกและโอนคะแนน
             </h2>
             <p className="text-xs text-slate-500 mt-1">คัดผู้สมัครที่ได้คะแนนน้อยสุดออกทีละรอบ จนกว่าจะมีผู้ชนะด้วยคะแนนเกิน 50%</p>
           </div>
@@ -377,7 +377,7 @@ export default function ResultsPage() {
                       ? 'bg-red-100'
                       : 'bg-orange-100'
                   }`}>
-                    {irvOutput.isTie ? '⚠️' : '🏆'}
+                    {irvOutput.isTie ? '⚠' : ''}
                   </div>
                   <div className="flex-1">
                     {irvOutput.isTie ? (
@@ -478,7 +478,7 @@ export default function ResultsPage() {
         <section className="bg-[var(--color-surface-card)] rounded-[var(--radius-card)] shadow-[var(--shadow-card)] border border-slate-200/60 overflow-hidden animate-fade-in">
           <div className="px-6 py-5 border-b border-slate-100 bg-gradient-to-r from-blue-50 to-indigo-50">
             <h2 className="text-lg font-bold text-blue-900">
-              ⚔️ Copeland's Rule — ระบบเปรียบเทียบคู่
+              ⚔ Copeland's Rule — ระบบเปรียบเทียบคู่
             </h2>
             <p className="text-xs text-slate-500 mt-1">เปรียบเทียบผู้สมัครแบบตัวต่อตัวทุดคู่ (ชนะ +1, เสมอ 0, แพ้ -1)</p>
           </div>
@@ -497,7 +497,7 @@ export default function ResultsPage() {
                       ? 'bg-amber-100'
                       : 'bg-blue-100'
                   }`}>
-                    {copelandOutput.status === 'tie' ? '⚠️' : '🏆'}
+                    {copelandOutput.status === 'tie' ? '⚠' : ''}
                   </div>
                   <div className="flex-1">
                     {copelandOutput.status === 'tie' ? (

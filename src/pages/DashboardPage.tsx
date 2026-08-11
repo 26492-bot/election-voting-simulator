@@ -101,19 +101,19 @@ export default function DashboardPage() {
 
   const getWinnerText = (): string => {
     if (method === 'plurality' && pluralityOutput) {
-      if (pluralityOutput.isTie) return `⚠️ เสมอ: ${pluralityOutput.tiedCandidateNames.join(', ')}`;
+      if (pluralityOutput.isTie) return `⚠ เสมอ: ${pluralityOutput.tiedCandidateNames.join(', ')}`;
       return pluralityOutput.winnerName ?? 'ยังไม่มีข้อมูล';
     }
     if (method === 'borda' && bordaOutput) {
-      if (bordaOutput.isTie) return `⚠️ เสมอ: ${bordaOutput.tiedCandidateNames.join(', ')}`;
+      if (bordaOutput.isTie) return `⚠ เสมอ: ${bordaOutput.tiedCandidateNames.join(', ')}`;
       return bordaOutput.winnerName ?? 'ยังไม่มีข้อมูล';
     }
     if (method === 'irv' && irvOutput) {
-      if (irvOutput.isTie) return `⚠️ เสมอ: ${irvOutput.tiedCandidateNames.join(', ')}`;
+      if (irvOutput.isTie) return `⚠ เสมอ: ${irvOutput.tiedCandidateNames.join(', ')}`;
       return irvOutput.winnerName ?? 'ยังไม่มีข้อมูล';
     }
     if (method === 'condorcet' && copelandOutput) {
-      if (copelandOutput.status === 'tie') return `⚠️ เสมอ: ${copelandOutput.winnerNames.join(', ')}`;
+      if (copelandOutput.status === 'tie') return `⚠ เสมอ: ${copelandOutput.winnerNames.join(', ')}`;
       return copelandOutput.winnerNames[0] ?? 'ยังไม่มีข้อมูล';
     }
     // Fallback
@@ -209,7 +209,7 @@ export default function DashboardPage() {
               กำลังแสดงผลลัพธ์
             </div>
             <h1 className="text-xl sm:text-2xl font-bold text-[var(--color-primary-950)]">
-              📊 {title.th}
+               {title.th}
             </h1>
             <p className="text-sm text-slate-500 mt-0.5">{title.en}</p>
           </div>
@@ -258,7 +258,7 @@ export default function DashboardPage() {
           }`}>
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center text-xl backdrop-blur-sm">
-                {isCurrentTie ? '⚠️' : '🏆'}
+                {isCurrentTie ? '⚠' : ''}
               </div>
               <div>
                 <p className="text-sm text-white/70">
@@ -289,14 +289,14 @@ export default function DashboardPage() {
               className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-[var(--radius-button)] border border-slate-300 text-slate-600 font-medium text-sm hover:bg-white hover:shadow-sm active:scale-[0.98] transition-all"
             >
               <Settings size={16} />
-              ⚙️ ตั้งค่าการเลือกตั้ง
+              ⚙ ตั้งค่าการเลือกตั้ง
             </button>
             <button
               onClick={() => navigate('/ballots')}
               className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-[var(--radius-button)] bg-[var(--color-primary-600)] text-white font-medium text-sm hover:bg-[var(--color-primary-700)] shadow-[var(--shadow-button)] active:scale-[0.98] transition-all"
             >
               <ClipboardList size={16} />
-              📋 ตารางคะแนน
+               ตารางคะแนน
               <ChevronRight size={16} />
             </button>
           </div>

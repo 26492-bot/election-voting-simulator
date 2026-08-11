@@ -73,7 +73,7 @@ export default function IRVChart({ output }: IRVChartProps) {
       {/* Line Chart */}
       <div className="bg-[var(--color-surface-card)] rounded-[var(--radius-card)] shadow-[var(--shadow-card)] border border-slate-200/60 overflow-hidden">
         <div className="px-5 py-4 border-b border-slate-100">
-          <h3 className="text-sm font-bold text-slate-800">📈 คะแนนตามรอบ</h3>
+          <h3 className="text-sm font-bold text-slate-800"> คะแนนตามรอบ</h3>
           <p className="text-[11px] text-slate-400 mt-0.5">Vote Progression — Instant Runoff Voting</p>
         </div>
 
@@ -81,7 +81,7 @@ export default function IRVChart({ output }: IRVChartProps) {
           <div className="mx-5 mt-4 flex items-center gap-2 p-3 bg-amber-50 border border-amber-200 rounded-lg">
             <AlertTriangle size={16} className="text-amber-600 shrink-0" />
             <p className="text-sm text-amber-700">
-              ⚠️ ไม่สามารถหาผู้ชนะได้ (เสมอกันในการคัดออก): <span className="font-semibold">{output.tiedCandidateNames.join(', ')}</span>
+              ⚠ ไม่สามารถหาผู้ชนะได้ (เสมอกันในการคัดออก): <span className="font-semibold">{output.tiedCandidateNames.join(', ')}</span>
             </p>
           </div>
         )}
@@ -149,7 +149,7 @@ export default function IRVChart({ output }: IRVChartProps) {
       {/* Round Selector */}
       <div className="bg-[var(--color-surface-card)] rounded-[var(--radius-card)] shadow-[var(--shadow-card)] border border-slate-200/60 overflow-hidden">
         <div className="px-5 py-4 border-b border-slate-100">
-          <h3 className="text-sm font-bold text-slate-800">🔄 รายละเอียดแต่ละรอบ</h3>
+          <h3 className="text-sm font-bold text-slate-800"> รายละเอียดแต่ละรอบ</h3>
           <p className="text-[11px] text-slate-400 mt-0.5">Round Details</p>
         </div>
 
@@ -196,7 +196,7 @@ export default function IRVChart({ output }: IRVChartProps) {
       {output.winner && (
         <div className="bg-gradient-to-r from-emerald-50 to-teal-50 rounded-[var(--radius-card)] border border-emerald-200 p-4">
           <p className="text-sm text-emerald-800">
-            <span className="font-bold">🏆 {output.winnerName}</span> ชนะการเลือกตั้งในรอบที่ {output.result.winningRound} ด้วยคะแนน{' '}
+            <span className="font-bold"> {output.winnerName}</span> ชนะการเลือกตั้งในรอบที่ {output.result.winningRound} ด้วยคะแนน{' '}
             <span className="font-bold">{finalRound.votes[output.winner]}</span> เสียง
             จากทั้งหมด {output.totalValidBallots} เสียง ({((finalRound.votes[output.winner] / output.totalValidBallots) * 100).toFixed(1)}%)
           </p>

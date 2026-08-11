@@ -7,7 +7,7 @@ export default function BallotsAllPage() {
   return (
     <div className="min-h-screen bg-[var(--color-surface)] flex items-center justify-center p-8">
       <div className="bg-white rounded-[var(--radius-card)] shadow-[var(--shadow-card)] p-8 text-center max-w-md">
-        <h1 className="text-2xl font-bold text-[var(--color-primary-800)] mb-2">📋 ข้อมูลทั้งหมด</h1>
+        <h1 className="text-2xl font-bold text-[var(--color-primary-800)] mb-2"> ข้อมูลทั้งหมด</h1>
         <p className="text-slate-500 mb-4">หน้านี้อยู่ระหว่างพัฒนา</p>
         <button
           onClick={() => navigate('/setup')}

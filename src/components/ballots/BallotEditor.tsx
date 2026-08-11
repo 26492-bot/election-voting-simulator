@@ -147,7 +147,7 @@ export default function BallotEditor({
           {!isComplete && Object.keys(ranks).length > 0 && (
             <div className="flex items-center gap-2 p-3 bg-amber-50 text-amber-700 rounded-lg text-sm">
               <AlertTriangle size={16} />
-              <span>⚠️ กรุณาจัดอันดับผู้สมัครให้ครบทุกคน และอันดับต้องไม่ซ้ำกัน</span>
+              <span>⚠ กรุณาจัดอันดับผู้สมัครให้ครบทุกคน และอันดับต้องไม่ซ้ำกัน</span>
             </div>
           )}
           {Object.keys(ranks).length === 0 && (

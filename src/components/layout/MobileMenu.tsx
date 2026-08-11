@@ -54,7 +54,7 @@ export default function MobileMenu({ currentMethod, onMethodChange, onNavigate }
       {/* Mobile Header */}
       <div className="lg:hidden fixed top-0 left-0 right-0 z-40 bg-[var(--color-surface-dark)] text-white px-4 py-3 flex items-center justify-between shadow-lg">
         <div className="flex items-center gap-2.5">
-          <span className="text-lg">🗳️</span>
+          <span className="text-lg">🗳</span>
           <div>
             <h1 className="text-sm font-bold tracking-wide">ELECTION SIMULATOR</h1>
           </div>
@@ -84,7 +84,7 @@ export default function MobileMenu({ currentMethod, onMethodChange, onNavigate }
         {/* Header */}
         <div className="px-5 pt-5 pb-3 flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <span className="text-xl">🗳️</span>
+            <span className="text-xl">🗳</span>
             <div>
               <h1 className="text-sm font-bold">ELECTION SIMULATOR</h1>
               <p className="text-[10px] text-slate-500">ระบบจำลองการเลือกตั้ง</p>

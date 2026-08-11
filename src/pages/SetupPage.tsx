@@ -454,7 +454,7 @@ export default function SetupPage() {
                   <AlertCircle size={24} className="text-[var(--color-error)]" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-slate-800">🗑️ ล้างข้อมูลการเลือกตั้ง</h3>
+                  <h3 className="font-semibold text-slate-800">🗑 ล้างข้อมูลการเลือกตั้ง</h3>
                   <p className="text-sm text-slate-500">Clear Election Data</p>
                 </div>
               </div>

@@ -22,7 +22,7 @@ export default function AllBallotsTable({ voterCount, candidates, ballots, onSel
       <div className="px-5 py-4 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h3 className="text-lg font-bold text-[var(--color-primary-900)] flex items-center gap-2">
-            📊 ตารางคะแนนรวม
+             ตารางคะแนนรวม
           </h3>
           <p className="text-xs text-slate-500 mt-1">คะแนนความชอบของผู้มีสิทธิเลือกตั้งทั้งหมด</p>
         </div>
@@ -123,7 +123,7 @@ export default function AllBallotsTable({ voterCount, candidates, ballots, onSel
                       ) : (
                         <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-amber-600 bg-amber-50 px-2 py-1 rounded-md">
                           <AlertTriangle size={14} />
-                          ⚠️
+                          ⚠
                         </div>
                       )}
                     </td>
@@ -136,7 +136,7 @@ export default function AllBallotsTable({ voterCount, candidates, ballots, onSel
       </div>
       
       <div className="px-5 py-3 border-t border-slate-100 bg-slate-50 text-xs text-slate-500 flex items-center justify-between">
-        <p>💡 ตัวเลขคือคะแนนความชอบ ({candidates.length} = ชอบมากที่สุด, 1 = ชอบน้อยที่สุด)</p>
+        <p> ตัวเลขคือคะแนนความชอบ ({candidates.length} = ชอบมากที่สุด, 1 = ชอบน้อยที่สุด)</p>
         <p>คลิกที่แถวเพื่อกลับไปแก้ไขข้อมูลรายบุคคล</p>
       </div>
     </div>

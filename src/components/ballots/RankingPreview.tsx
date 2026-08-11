@@ -10,7 +10,7 @@ interface RankingPreviewProps {
   candidates: Candidate[];
 }
 
-const RANK_ICONS = ['🥇', '🥈', '🥉'];
+const RANK_ICONS = ['', '', ''];
 
 export default function RankingPreview({ ranking, candidates }: RankingPreviewProps) {
   if (!ranking || ranking.length !== candidates.length) {

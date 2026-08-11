@@ -42,7 +42,7 @@ export default function ExplanationPanel({ method }: ExplanationPanelProps) {
           <Lightbulb size={16} className="text-amber-600" />
         </div>
         <div>
-          <h3 className="text-sm font-semibold text-amber-900">💡 หลักการทำงาน</h3>
+          <h3 className="text-sm font-semibold text-amber-900"> หลักการทำงาน</h3>
           <p className="text-[11px] text-amber-600">How it works</p>
         </div>
       </div>

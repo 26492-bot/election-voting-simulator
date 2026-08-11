@@ -105,7 +105,7 @@ export default function BallotsPage() {
           </button>
           <div>
             <h1 className="text-lg sm:text-xl font-bold text-[var(--color-primary-950)] flex items-center gap-2">
-              📋 ตารางการให้คะแนนของผู้มีสิทธิเลือกตั้ง
+               ตารางการให้คะแนนของผู้มีสิทธิเลือกตั้ง
             </h1>
             <p className="text-xs text-slate-500">Voter Preference</p>
           </div>

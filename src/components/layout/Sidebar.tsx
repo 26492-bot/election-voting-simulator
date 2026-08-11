@@ -72,7 +72,7 @@ export default function Sidebar({ currentMethod, onMethodChange, onNavigate }: S
       <div className="px-5 pt-6 pb-4">
         <div className="flex items-center gap-2.5">
           <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[var(--color-primary-400)] to-[var(--color-accent-500)] flex items-center justify-center shadow-lg">
-            <span className="text-lg">🗳️</span>
+            <span className="text-lg">🗳</span>
           </div>
           <div>
             <h1 className="text-sm font-bold tracking-wide">ELECTION</h1>

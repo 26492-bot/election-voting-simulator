@@ -23,7 +23,7 @@ interface RankingCardProps {
   tiedCandidateNames?: string[];
 }
 
-const RANK_ICONS = ['🥇', '🥈', '🥉'];
+const RANK_ICONS = ['', '', ''];
 
 const RANK_BG = [
   'bg-amber-50 border-amber-200',
@@ -43,7 +43,7 @@ export default function RankingCard({ method, ranking, scoreLabel, isTie, tiedCa
         <div className="flex items-center gap-2 text-white">
           <Trophy size={18} />
           <div>
-            <h3 className="font-semibold text-sm">🏆 ผลการเลือกตั้ง</h3>
+            <h3 className="font-semibold text-sm"> ผลการเลือกตั้ง</h3>
             <p className="text-[11px] text-primary-200 opacity-75">Ranking</p>
           </div>
         </div>
@@ -56,7 +56,7 @@ export default function RankingCard({ method, ranking, scoreLabel, isTie, tiedCa
       {isTie && tiedCandidateNames && tiedCandidateNames.length > 0 && (
         <div className="mx-4 mt-3 p-2.5 bg-amber-50 border border-amber-200 rounded-lg">
           <p className="text-xs text-amber-700 font-medium">
-            ⚠️ เสมอ: {tiedCandidateNames.join(', ')}
+            ⚠ เสมอ: {tiedCandidateNames.join(', ')}
           </p>
         </div>
       )}

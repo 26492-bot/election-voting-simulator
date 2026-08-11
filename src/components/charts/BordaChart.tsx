@@ -43,7 +43,7 @@ export default function BordaChart({ scores, isTie, tiedCandidateNames, totalVal
     <div className="bg-[var(--color-surface-card)] rounded-[var(--radius-card)] shadow-[var(--shadow-card)] border border-slate-200/60 overflow-hidden animate-fade-in">
       {/* Header */}
       <div className="px-5 py-4 border-b border-slate-100">
-        <h3 className="text-sm font-bold text-slate-800">📈 คะแนนรวมตามอันดับ</h3>
+        <h3 className="text-sm font-bold text-slate-800"> คะแนนรวมตามอันดับ</h3>
         <p className="text-[11px] text-slate-400 mt-0.5">Borda Score — Borda Count</p>
       </div>
 
@@ -52,7 +52,7 @@ export default function BordaChart({ scores, isTie, tiedCandidateNames, totalVal
         <div className="mx-5 mt-4 flex items-center gap-2 p-3 bg-amber-50 border border-amber-200 rounded-lg">
           <AlertTriangle size={16} className="text-amber-600 shrink-0" />
           <p className="text-sm text-amber-700">
-            ⚠️ ผลเสมอ — <span className="font-semibold">{tiedCandidateNames.join(' และ ')}</span> ได้คะแนนเท่ากัน
+            ⚠ ผลเสมอ — <span className="font-semibold">{tiedCandidateNames.join(' และ ')}</span> ได้คะแนนเท่ากัน
           </p>
         </div>
       )}
