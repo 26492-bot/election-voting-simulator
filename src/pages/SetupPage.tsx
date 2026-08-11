@@ -417,31 +417,7 @@ export default function SetupPage() {
               )}
             </div>
 
-            {/* Existing Election Info */}
-            {election && election.ballots.length > 0 && (
-              <div className="bg-emerald-50 border border-emerald-200 rounded-[var(--radius-input)] p-4 animate-fade-in">
-                <div className="flex items-start gap-2">
-                  <CheckCircle2 size={18} className="text-[var(--color-success)] mt-0.5 shrink-0" />
-                  <div>
-                    <p className="text-sm font-medium text-emerald-800">
-                      มีข้อมูลการเลือกตั้งอยู่แล้ว
-                    </p>
-                    <p className="text-xs text-emerald-600 mt-0.5">
-                      ผู้มีสิทธิเลือกตั้ง {election.voterCount} คน •
-                      ผู้สมัคร {election.candidates.length} คน •
-                      บัตรลงคะแนน {election.ballots.length} ใบ
-                    </p>
-                    <button
-                      onClick={() => navigate('/dashboard')}
-                      className="mt-2 inline-flex items-center gap-1 text-xs font-medium text-emerald-700 hover:text-emerald-900 underline underline-offset-2"
-                    >
-                      ไปยัง Dashboard
-                      <ChevronRight size={14} />
-                    </button>
-                  </div>
-                </div>
-              </div>
-            )}
+
           </div>
         </div>
 
