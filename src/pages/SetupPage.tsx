@@ -72,8 +72,8 @@ export default function SetupPage() {
     if (voterCount < 2) {
       errs.push('จำนวนผู้มีสิทธิเลือกตั้งต้องมีอย่างน้อย 2 คน');
     }
-    if (voterCount > 1000) {
-      errs.push('จำนวนผู้มีสิทธิเลือกตั้งไม่ควรเกิน 1,000 คน');
+    if (voterCount > 100000) {
+      errs.push('จำนวนผู้มีสิทธิเลือกตั้งไม่ควรเกิน 100,000 คน');
     }
     if (candidateCount < 2) {
       errs.push('จำนวนผู้สมัครต้องมีอย่างน้อย 2 คน');
@@ -223,7 +223,7 @@ export default function SetupPage() {
                 <input
                   type="number"
                   min={2}
-                  max={1000}
+                  max={100000}
                   value={voterCount}
                   onChange={e => {
                     setVoterCount(Math.max(0, parseInt(e.target.value) || 0));
@@ -238,7 +238,7 @@ export default function SetupPage() {
               </div>
               <p className="text-xs text-slate-400 flex items-center gap-1">
                 <Info size={12} />
-                ขั้นต่ำ 2 คน สูงสุด 1,000 คน
+                ขั้นต่ำ 2 คน สูงสุด 100,000 คน
               </p>
             </div>
 
