@@ -396,59 +396,7 @@ export default function SetupPage() {
               </div>
             </div>
 
-            {/* Auto Generate Options */}
-            {dataEntryMode === 'auto' && (
-              <div className="space-y-3 animate-fade-in">
-                <label className="flex items-center gap-2 text-sm font-semibold text-slate-700">
-                  <Dices size={16} className="text-[var(--color-primary-500)]" />
-                  รูปแบบการสุ่ม
-                  <span className="text-slate-400 font-normal">— Generation Mode</span>
-                </label>
-
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                  {[
-                    {
-                      mode: 'uniform' as AutoGenerateMode,
-                      label: 'สุ่มเท่า ๆ กัน',
-                      sublabel: 'Uniform Random',
-                      icon: <Shuffle size={16} />,
-                      desc: 'ทุกผู้สมัครมีโอกาสเท่ากัน',
-                    },
-                    {
-                      mode: 'realistic' as AutoGenerateMode,
-                      label: 'สุ่มแบบสมจริง',
-                      sublabel: 'Realistic',
-                      icon: <BarChart3 size={16} />,
-                      desc: 'มีผู้สมัครที่เป็นที่นิยม',
-                    },
-                    {
-                      mode: 'custom' as AutoGenerateMode,
-                      label: 'กำหนดเอง',
-                      sublabel: 'Custom',
-                      icon: <Settings2 size={16} />,
-                      desc: 'กรอกข้อมูลเองบางส่วน',
-                    },
-                  ].map(({ mode, label, sublabel, icon, desc }) => (
-                    <button
-                      key={mode}
-                      onClick={() => setAutoGenerateMode(mode)}
-                      className={`p-3 rounded-[var(--radius-input)] border transition-all duration-200 text-left ${
-                        autoGenerateMode === mode
-                          ? 'border-[var(--color-primary-400)] bg-[var(--color-primary-50)] text-[var(--color-primary-700)]'
-                          : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300'
-                      }`}
-                    >
-                      <div className="flex items-center gap-2 mb-1">
-                        {icon}
-                        <span className="font-medium text-sm">{label}</span>
-                      </div>
-                      <p className="text-[10px] text-slate-400">{sublabel}</p>
-                      <p className="text-[11px] mt-1 opacity-70">{desc}</p>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
+            {/* Removed Auto Generate Options UI as requested */}
 
             {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row gap-3 pt-4">
