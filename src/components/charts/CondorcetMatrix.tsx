@@ -186,9 +186,26 @@ export default function CondorcetMatrix({ output }: CondorcetMatrixProps) {
                 ))}
                 <LabelList
                   dataKey="score"
-                  position="top"
-                  style={{ fontSize: 12, fontWeight: 600, fill: '#475569' }}
-                  formatter={(v: any) => (Number(v) > 0 ? `+${v}` : `${v}`)}
+                  content={(props: any) => {
+                    const { x, y, width, height, value } = props;
+                    const numValue = Number(value);
+                    const isNegative = numValue < 0;
+                    // For negative bars, y is the top (zero line) and y+height is the bottom tip
+                    // For positive bars, y is the top tip
+                    const yPos = isNegative ? y + height + 15 : y - 10;
+                    return (
+                      <text
+                        x={x + width / 2}
+                        y={yPos}
+                        fill="#475569"
+                        textAnchor="middle"
+                        fontSize={12}
+                        fontWeight={600}
+                      >
+                        {numValue > 0 ? `+${numValue}` : `${numValue}`}
+                      </text>
+                    );
+                  }}
                 />
               </Bar>
             </BarChart>
