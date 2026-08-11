@@ -6,8 +6,7 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  Cell,
-  LabelList,
+  Legend,
 } from 'recharts';
 import { AlertTriangle } from 'lucide-react';
 import type { BordaCandidateScore } from '../../algorithms/borda';
@@ -19,7 +18,7 @@ interface BordaChartProps {
   totalValidBallots: number;
 }
 
-const COLORS = ['#10b981', '#34d399', '#6ee7b7', '#a7f3d0', '#d1fae5', '#ecfdf5', '#059669'];
+const COLORS = ['#10b981', '#34d399', '#6ee7b7', '#a7f3d0', '#d1fae5', '#ecfdf5', '#059669', '#3b82f6', '#8b5cf6'];
 
 export default function BordaChart({ scores, isTie, tiedCandidateNames, totalValidBallots }: BordaChartProps) {
   if (scores.length === 0) {
@@ -30,6 +29,15 @@ export default function BordaChart({ scores, isTie, tiedCandidateNames, totalVal
       </div>
     );
   }
+
+  const chartData = scores.map(s => ({
+    name: s.name,
+    ...s.breakdown,
+    totalScore: s.score,
+  }));
+
+  const numRanks = Object.keys(scores[0]?.breakdown || {}).length;
+  const ranks = Array.from({ length: numRanks }, (_, i) => `rank${i + 1}`);
 
   return (
     <div className="bg-[var(--color-surface-card)] rounded-[var(--radius-card)] shadow-[var(--shadow-card)] border border-slate-200/60 overflow-hidden animate-fade-in">
@@ -50,9 +58,9 @@ export default function BordaChart({ scores, isTie, tiedCandidateNames, totalVal
       )}
 
       {/* Chart */}
-      <div className="p-4" style={{ height: 320 }}>
+      <div className="p-4" style={{ height: 360 }}>
         <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={scores} layout="vertical" margin={{ top: 10, right: 30, left: 20, bottom: 5 }}>
+          <BarChart data={chartData} layout="vertical" margin={{ top: 10, right: 30, left: 20, bottom: 5 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" horizontal={true} vertical={false} />
             <XAxis
               type="number"
@@ -76,18 +84,21 @@ export default function BordaChart({ scores, isTie, tiedCandidateNames, totalVal
                 boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
                 fontSize: '13px',
               }}
-              formatter={(value) => [`${value} คะแนน`, 'Borda Score']}
+              formatter={(value, name) => [`${value} คะแนน`, name]}
             />
-            <Bar dataKey="score" radius={[0, 8, 8, 0]} maxBarSize={40}>
-              {scores.map((_, index) => (
-                <Cell key={index} fill={COLORS[index % COLORS.length]} />
-              ))}
-              <LabelList
-                dataKey="score"
-                position="right"
-                style={{ fontSize: 12, fontWeight: 600, fill: '#475569' }}
-              />
-            </Bar>
+            <Legend wrapperStyle={{ fontSize: '12px', color: '#64748b' }} />
+            {ranks.map((rank, idx) => (
+              <Bar
+                key={rank}
+                dataKey={rank}
+                stackId="a"
+                fill={COLORS[idx % COLORS.length]}
+                name={`อันดับ ${idx + 1}`}
+                maxBarSize={40}
+              >
+                {/* Only show the total label on the very first bar but positioned at the end of the stack. Recharts doesn't natively support total labels on stacked bars easily without custom shape, but we can just let Tooltip show breakdown. */}
+              </Bar>
+            ))}
           </BarChart>
         </ResponsiveContainer>
       </div>

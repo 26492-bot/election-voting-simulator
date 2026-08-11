@@ -11,6 +11,7 @@ export interface BordaCandidateScore {
   score: number;
   percent: number;
   rank: number;
+  breakdown: Record<string, number>;
 }
 
 export interface BordaOutput {
@@ -94,13 +95,20 @@ export function computeBorda(
 
   // Build scored entries and sort descending by score
   const scores: BordaCandidateScore[] = candidates
-    .map(c => ({
-      id: c.id,
-      name: c.name,
-      score: scoresMap[c.id],
-      percent: maxPossibleScore > 0 ? (scoresMap[c.id] / maxPossibleScore) * 100 : 0,
-      rank: 0, // will assign after sorting
-    }))
+    .map(c => {
+      const breakdown: Record<string, number> = {};
+      for (let i = 0; i < N; i++) {
+        breakdown[`rank${i + 1}`] = rankDistribution[c.id][i] * (N - i);
+      }
+      return {
+        id: c.id,
+        name: c.name,
+        score: scoresMap[c.id],
+        percent: maxPossibleScore > 0 ? (scoresMap[c.id] / maxPossibleScore) * 100 : 0,
+        rank: 0, // will assign after sorting
+        breakdown,
+      };
+    })
     .sort((a, b) => b.score - a.score);
 
   // Assign ranks (1-indexed)
