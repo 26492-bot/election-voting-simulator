@@ -3,7 +3,7 @@
 // ==========================================
 
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { ArrowLeft, Dices, ChevronLeft, ChevronRight, Save, LayoutDashboard, User, TableProperties } from 'lucide-react';
 import { useElection } from '../context/ElectionContext';
 import { generateRandomBallots, generateRandomBallot } from '../utils/ballotGenerator';
@@ -19,10 +19,12 @@ type ViewMode = 'individual' | 'all';
 
 export default function BallotsPage() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { election, updateBallot, updateBallots } = useElection();
 
   // State
-  const [currentVoterId, setCurrentVoterId] = useState<number>(1);
+  const initialVoterId = location.state?.selectedVoterId || 1;
+  const [currentVoterId, setCurrentVoterId] = useState<number>(initialVoterId);
   const [currentRanking, setCurrentRanking] = useState<string[] | null>(null);
   const [viewMode, setViewMode] = useState<ViewMode>('individual');
 

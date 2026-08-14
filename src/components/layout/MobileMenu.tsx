@@ -140,7 +140,7 @@ export default function MobileMenu({ currentMethod, onMethodChange, onNavigate }
           <button onClick={() => handleNavigate('/ballots/all')} className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-white/8 transition-all">
             <FileSpreadsheet size={16} /><span className="text-sm">ข้อมูล Ballot</span>
           </button>
-          <button onClick={() => handleNavigate('/setup')} className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-white/8 transition-all">
+          <button onClick={() => handleNavigate('/settings')} className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-white/8 transition-all">
             <Settings size={16} /><span className="text-sm">ตั้งค่า</span>
           </button>
         </div>

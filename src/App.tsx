@@ -9,6 +9,7 @@ import DashboardPage from './pages/DashboardPage';
 import BallotsPage from './pages/BallotsPage';
 import BallotsAllPage from './pages/BallotsAllPage';
 import ResultsPage from './pages/ResultsPage';
+import SettingsPage from './pages/SettingsPage';
 
 export default function App() {
   return (
@@ -21,6 +22,7 @@ export default function App() {
           <Route path="/ballots" element={<BallotsPage />} />
           <Route path="/ballots/all" element={<BallotsAllPage />} />
           <Route path="/results" element={<ResultsPage />} />
+          <Route path="/settings" element={<SettingsPage />} />
         </Routes>
       </BrowserRouter>
     </ElectionProvider>

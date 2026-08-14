@@ -13,6 +13,10 @@ interface ElectionContextType {
   createElection: (voterCount: number, candidates: Candidate[], ballots?: Ballot[]) => void;
   updateBallot: (ballot: Ballot) => void;
   updateBallots: (ballots: Ballot[]) => void;
+  removeBallot: (voterId: number) => void;
+  clearBallots: () => void;
+  updateCandidates: (candidates: Candidate[]) => void;
+  updateVoterCount: (count: number) => void;
   resetElection: () => void;
   isLoaded: boolean;
 }
@@ -69,6 +73,44 @@ export function ElectionProvider({ children }: { children: ReactNode }) {
     setElection(updatedElection);
   };
 
+  const removeBallot = (voterId: number) => {
+    if (!election) return;
+    const newBallots = election.ballots.filter(b => b.voterId !== voterId);
+    setElection({ ...election, ballots: newBallots });
+  };
+
+  const clearBallots = () => {
+    if (!election) return;
+    setElection({ ...election, ballots: [] });
+  };
+
+  const updateCandidates = (newCandidates: Candidate[]) => {
+    if (!election) return;
+    // When candidates are updated, ensure ballots only reference valid candidates
+    const validCandidateIds = new Set(newCandidates.map(c => c.id));
+    const newBallots = election.ballots.map(ballot => {
+      // Filter out removed candidates
+      const newRanking = ballot.ranking.filter(id => validCandidateIds.has(id));
+      
+      // Add new candidates to the end of the ranking
+      const existingRankingSet = new Set(newRanking);
+      newCandidates.forEach(c => {
+        if (!existingRankingSet.has(c.id)) {
+          newRanking.push(c.id);
+        }
+      });
+      
+      return { ...ballot, ranking: newRanking };
+    });
+    
+    setElection({ ...election, candidates: newCandidates, ballots: newBallots });
+  };
+
+  const updateVoterCount = (count: number) => {
+    if (!election) return;
+    setElection({ ...election, voterCount: count });
+  };
+
   const resetElection = () => {
     setElection(null);
     clearElection();
@@ -84,6 +126,10 @@ export function ElectionProvider({ children }: { children: ReactNode }) {
         createElection,
         updateBallot,
         updateBallots,
+        removeBallot,
+        clearBallots,
+        updateCandidates,
+        updateVoterCount,
         resetElection,
         isLoaded,
       }}
