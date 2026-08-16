@@ -233,3 +233,50 @@ body {
     border-radius: 4px 4px 0 0;
   }
 }
+
+/* ==========================================
+   Print Styles & Comparison Dashboard
+   ========================================== */
+
+@media print {
+  body {
+    background-color: white !important;
+  }
+  
+  .print\:hidden {
+    display: none !important;
+  }
+  
+  .print\:block {
+    display: block !important;
+  }
+
+  .print\:shadow-none {
+    box-shadow: none !important;
+  }
+
+  .print\:border-b-2 {
+    border-bottom-width: 2px !important;
+  }
+
+  .print\:border-slate-300 {
+    border-color: #cbd5e1 !important;
+  }
+
+  .comparison-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 1rem !important;
+    page-break-inside: avoid;
+  }
+
+  .comparison-card {
+    break-inside: avoid;
+    box-shadow: none !important;
+    border: 1px solid #e2e8f0 !important;
+  }
+
+  .comparison-chart {
+    height: 120px !important;
+  }
+}

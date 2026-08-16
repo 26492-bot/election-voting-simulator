@@ -19,6 +19,9 @@ import {
   Dices,
   Settings2,
   Trash2,
+  BookOpen,
+  FlaskConical,
+  Play,
 } from 'lucide-react';
 import { useElection } from '../context/ElectionContext';
 import type { Candidate, DataEntryMode, AutoGenerateMode } from '../types';
@@ -28,6 +31,7 @@ import {
   generateUniformBallots,
   generateRealisticBallots,
 } from '../utils/ballotGenerator';
+import { PRESET_CASES } from '../data/presetCases';
 
 export default function SetupPage() {
   const navigate = useNavigate();
@@ -141,6 +145,14 @@ export default function SetupPage() {
     }
   };
 
+  const handleLoadPresetCase = (caseId: string) => {
+    const presetCase = PRESET_CASES.find(c => c.id === caseId);
+    if (!presetCase) return;
+
+    createElection(presetCase.voterCount, presetCase.candidates, presetCase.ballots);
+    navigate('/dashboard');
+  };
+
   const handleReset = () => {
     resetElection();
     setVoterCount(10);
@@ -185,120 +197,13 @@ export default function SetupPage() {
           </div>
 
           <div className="p-6 space-y-6">
-            {/* Error Messages */}
-            {touched && errors.length > 0 && (
-              <div className="bg-red-50 border border-red-200 rounded-[var(--radius-input)] p-4 animate-fade-in">
-                <div className="flex items-start gap-2">
-                  <AlertCircle size={18} className="text-[var(--color-error)] mt-0.5 shrink-0" />
-                  <div className="space-y-1">
-                    {errors.map((err, i) => (
-                      <p key={i} className="text-sm text-red-700">{err}</p>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Voter Count */}
-            <div className="space-y-2">
-              <label className="block text-sm font-bold text-slate-700">
-                จำนวนผู้มีสิทธิเลือกตั้ง
-              </label>
-              <div className="relative">
-                <input
-                  type="number"
-                  min={2}
-                  max={100000}
-                  value={voterCount}
-                  onChange={e => {
-                    setVoterCount(Math.max(0, parseInt(e.target.value) || 0));
-                    if (!touched) setTouched(true);
-                  }}
-                  className="w-full px-4 py-3 rounded-[var(--radius-input)] border border-slate-300 bg-white text-slate-800 font-medium text-lg focus:outline-none focus:ring-2 focus:ring-[var(--color-primary-400)] focus:border-[var(--color-primary-400)] transition-all duration-200 hover:border-slate-400"
-                  placeholder="เช่น 10, 50, 100"
-                />
-                <div className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400 bg-slate-100 px-2 py-1 rounded">
-                  คน
-                </div>
-              </div>
-              <p className="text-xs text-slate-400 flex items-center gap-1">
-                <Info size={12} />
-                ขั้นต่ำ 2 คน สูงสุด 100,000 คน
-              </p>
-            </div>
-
-            {/* Candidate Count */}
-            <div className="space-y-2">
-              <label className="block text-sm font-bold text-slate-700">
-                จำนวนผู้สมัคร
-              </label>
-              <div className="relative">
-                <input
-                  type="number"
-                  min={2}
-                  max={26}
-                  value={candidateCount}
-                  onChange={e => {
-                    setCandidateCount(Math.max(0, parseInt(e.target.value) || 0));
-                    if (!touched) setTouched(true);
-                  }}
-                  className="w-full px-4 py-3 rounded-[var(--radius-input)] border border-slate-300 bg-white text-slate-800 font-medium text-lg focus:outline-none focus:ring-2 focus:ring-[var(--color-primary-400)] focus:border-[var(--color-primary-400)] transition-all duration-200 hover:border-slate-400"
-                  placeholder="เช่น 3, 5, 8"
-                />
-                <div className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400 bg-slate-100 px-2 py-1 rounded">
-                  คน
-                </div>
-              </div>
-              <p className="text-xs text-slate-400 flex items-center gap-1">
-                <Info size={12} />
-                ขั้นต่ำ 2 คน สูงสุด 26 คน (A–Z)
-              </p>
-            </div>
-
-            {/* Divider */}
-            <div className="border-t border-slate-200 pt-2" />
-
-            {/* Candidate Names */}
-            {candidateCount >= 2 && candidateCount <= 26 && (
-              <div className="space-y-3 animate-fade-in">
-                <label className="block text-sm font-bold text-slate-700">
-                  ชื่อผู้สมัคร
-                </label>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 stagger-children">
-                  {Array.from({ length: candidateCount }, (_, i) => (
-                    <div key={i} className="flex items-center gap-2">
-                      <div className="shrink-0 w-8 h-8 rounded-lg bg-gradient-to-br from-[var(--color-primary-500)] to-[var(--color-primary-700)] flex items-center justify-center text-white font-bold text-sm shadow-sm">
-                        {generateCandidateId(i)}
-                      </div>
-                      <input
-                        type="text"
-                        value={candidateNames[i] || ''}
-                        onChange={e => handleCandidateNameChange(i, e.target.value)}
-                        className="flex-1 px-3 py-2.5 rounded-[var(--radius-input)] border border-slate-300 bg-white text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary-400)] focus:border-[var(--color-primary-400)] transition-all duration-200 hover:border-slate-400"
-                        placeholder={generateCandidateName(i)}
-                      />
-                    </div>
-                  ))}
-                </div>
-
-                <p className="text-xs text-slate-400 flex items-center gap-1">
-                  <Info size={12} />
-                  สามารถเปลี่ยนชื่อผู้สมัครได้ตามต้องการ
-                </p>
-              </div>
-            )}
-
-            {/* Divider */}
-            <div className="border-t border-slate-200 pt-2" />
-
             {/* Data Entry Mode */}
             <div className="space-y-3">
               <label className="block text-sm font-bold text-slate-700">
                 วิธีการกรอกข้อมูลคะแนน
               </label>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 {/* Auto Generate */}
                 <button
                   onClick={() => setDataEntryMode('auto')}
@@ -372,22 +277,243 @@ export default function SetupPage() {
                     กรอกอันดับความชอบทีละคน
                   </p>
                 </button>
+
+                {/* Demo Preset Cases */}
+                <button
+                  onClick={() => setDataEntryMode('demo')}
+                  className={`relative p-4 rounded-[var(--radius-card)] border-2 transition-all duration-200 text-left group ${
+                    dataEntryMode === 'demo'
+                      ? 'border-amber-500 bg-amber-50'
+                      : 'border-slate-200 bg-white hover:border-slate-300 hover:shadow-sm'
+                  }`}
+                >
+                  {dataEntryMode === 'demo' && (
+                    <div className="absolute top-2.5 right-2.5">
+                      <CheckCircle2 size={18} className="text-amber-500" />
+                    </div>
+                  )}
+                  <div className={`p-2 rounded-lg w-fit mb-2 ${
+                    dataEntryMode === 'demo'
+                      ? 'bg-amber-100'
+                      : 'bg-slate-100 group-hover:bg-slate-200'
+                  } transition-colors`}>
+                    <FlaskConical size={20} className={
+                      dataEntryMode === 'demo'
+                        ? 'text-amber-600'
+                        : 'text-slate-500'
+                    } />
+                  </div>
+                  <h3 className={`font-semibold text-sm ${
+                    dataEntryMode === 'demo'
+                      ? 'text-amber-800'
+                      : 'text-slate-700'
+                  }`}>
+                    ชุดข้อมูลตัวอย่าง
+                  </h3>
+                  <p className="text-xs text-slate-400 mt-0.5">
+                    กรณีศึกษาสำหรับการสาธิต
+                  </p>
+                </button>
               </div>
             </div>
 
-            {/* Removed Auto Generate Options UI as requested */}
+            {/* Divider */}
+            <div className="border-t border-slate-200 pt-2" />
 
-            {/* Action Button */}
-            <div className="pt-4">
-              <button
-                onClick={handleSubmit}
-                className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-[var(--radius-button)] bg-slate-800 text-white font-semibold text-base hover:bg-slate-900 active:scale-[0.98] transition-all duration-200"
-              >
-                เริ่มจำลองการเลือกตั้ง
-                <ChevronRight size={18} />
-              </button>
-            </div>
+            {/* ============================================ */}
+            {/* Mode: Demo — Preset Case Selector */}
+            {/* ============================================ */}
+            {dataEntryMode === 'demo' && (
+              <div className="space-y-4 animate-fade-in">
+                {/* Warning banner */}
+                <div className="bg-amber-50 border border-amber-200 rounded-[var(--radius-card)] p-4 flex items-start gap-3">
+                  <div className="p-1.5 bg-amber-100 rounded-lg shrink-0 mt-0.5">
+                    <FlaskConical size={16} className="text-amber-600" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-amber-800">
+                      ข้อมูลจำลองสำหรับการศึกษา
+                    </p>
+                    <p className="text-xs text-amber-600 mt-0.5">
+                      กรณีศึกษาเหล่านี้เป็นข้อมูลที่ออกแบบไว้ล่วงหน้าเพื่อสาธิตคุณสมบัติของระบบเลือกตั้ง — ไม่ใช่ข้อมูลการเลือกตั้งจริง
+                    </p>
+                  </div>
+                </div>
 
+                <label className="block text-sm font-bold text-slate-700">
+                  เลือกกรณีศึกษา
+                </label>
+
+                <div className="space-y-3 stagger-children">
+                  {PRESET_CASES.map((presetCase) => (
+                    <div
+                      key={presetCase.id}
+                      className="bg-white border border-slate-200 rounded-[var(--radius-card)] p-5 hover:border-slate-300 hover:shadow-md transition-all duration-200 group"
+                    >
+                      <div className="flex items-start justify-between gap-4">
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2 mb-1">
+                            <BookOpen size={16} className="text-amber-500 shrink-0" />
+                            <h3 className="font-semibold text-slate-800 text-sm">
+                              {presetCase.name}
+                            </h3>
+                          </div>
+                          <p className="text-xs text-slate-500 mb-2 leading-relaxed">
+                            {presetCase.description}
+                          </p>
+                          <div className="flex items-center gap-4 text-xs text-slate-400">
+                            <span className="inline-flex items-center gap-1">
+                              <Users size={12} />
+                              {presetCase.voterCount} คน
+                            </span>
+                            <span className="inline-flex items-center gap-1">
+                              <BarChart3 size={12} />
+                              {presetCase.candidates.length} ผู้สมัคร
+                            </span>
+                          </div>
+                          <div className="mt-2 bg-slate-50 rounded-lg px-3 py-2">
+                            <p className="text-xs text-slate-600 italic leading-relaxed">
+                              💡 {presetCase.highlightText}
+                            </p>
+                          </div>
+                        </div>
+                        <button
+                          onClick={() => handleLoadPresetCase(presetCase.id)}
+                          className="shrink-0 inline-flex items-center gap-1.5 px-4 py-2.5 rounded-[var(--radius-button)] bg-amber-500 text-white font-semibold text-xs hover:bg-amber-600 active:scale-[0.97] transition-all shadow-sm"
+                        >
+                          <Play size={14} />
+                          ใช้กรณีศึกษานี้
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* ============================================ */}
+            {/* Mode: Auto / Manual — Original Form */}
+            {/* ============================================ */}
+            {dataEntryMode !== 'demo' && (
+              <>
+                {/* Error Messages */}
+                {touched && errors.length > 0 && (
+                  <div className="bg-red-50 border border-red-200 rounded-[var(--radius-input)] p-4 animate-fade-in">
+                    <div className="flex items-start gap-2">
+                      <AlertCircle size={18} className="text-[var(--color-error)] mt-0.5 shrink-0" />
+                      <div className="space-y-1">
+                        {errors.map((err, i) => (
+                          <p key={i} className="text-sm text-red-700">{err}</p>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Voter Count */}
+                <div className="space-y-2">
+                  <label className="block text-sm font-bold text-slate-700">
+                    จำนวนผู้มีสิทธิเลือกตั้ง
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="number"
+                      min={2}
+                      max={100000}
+                      value={voterCount}
+                      onChange={e => {
+                        setVoterCount(Math.max(0, parseInt(e.target.value) || 0));
+                        if (!touched) setTouched(true);
+                      }}
+                      className="w-full px-4 py-3 rounded-[var(--radius-input)] border border-slate-300 bg-white text-slate-800 font-medium text-lg focus:outline-none focus:ring-2 focus:ring-[var(--color-primary-400)] focus:border-[var(--color-primary-400)] transition-all duration-200 hover:border-slate-400"
+                      placeholder="เช่น 10, 50, 100"
+                    />
+                    <div className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400 bg-slate-100 px-2 py-1 rounded">
+                      คน
+                    </div>
+                  </div>
+                  <p className="text-xs text-slate-400 flex items-center gap-1">
+                    <Info size={12} />
+                    ขั้นต่ำ 2 คน สูงสุด 100,000 คน
+                  </p>
+                </div>
+
+                {/* Candidate Count */}
+                <div className="space-y-2">
+                  <label className="block text-sm font-bold text-slate-700">
+                    จำนวนผู้สมัคร
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="number"
+                      min={2}
+                      max={26}
+                      value={candidateCount}
+                      onChange={e => {
+                        setCandidateCount(Math.max(0, parseInt(e.target.value) || 0));
+                        if (!touched) setTouched(true);
+                      }}
+                      className="w-full px-4 py-3 rounded-[var(--radius-input)] border border-slate-300 bg-white text-slate-800 font-medium text-lg focus:outline-none focus:ring-2 focus:ring-[var(--color-primary-400)] focus:border-[var(--color-primary-400)] transition-all duration-200 hover:border-slate-400"
+                      placeholder="เช่น 3, 5, 8"
+                    />
+                    <div className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400 bg-slate-100 px-2 py-1 rounded">
+                      คน
+                    </div>
+                  </div>
+                  <p className="text-xs text-slate-400 flex items-center gap-1">
+                    <Info size={12} />
+                    ขั้นต่ำ 2 คน สูงสุด 26 คน (A–Z)
+                  </p>
+                </div>
+
+                {/* Divider */}
+                <div className="border-t border-slate-200 pt-2" />
+
+                {/* Candidate Names */}
+                {candidateCount >= 2 && candidateCount <= 26 && (
+                  <div className="space-y-3 animate-fade-in">
+                    <label className="block text-sm font-bold text-slate-700">
+                      ชื่อผู้สมัคร
+                    </label>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 stagger-children">
+                      {Array.from({ length: candidateCount }, (_, i) => (
+                        <div key={i} className="flex items-center gap-2">
+                          <div className="shrink-0 w-8 h-8 rounded-lg bg-gradient-to-br from-[var(--color-primary-500)] to-[var(--color-primary-700)] flex items-center justify-center text-white font-bold text-sm shadow-sm">
+                            {generateCandidateId(i)}
+                          </div>
+                          <input
+                            type="text"
+                            value={candidateNames[i] || ''}
+                            onChange={e => handleCandidateNameChange(i, e.target.value)}
+                            className="flex-1 px-3 py-2.5 rounded-[var(--radius-input)] border border-slate-300 bg-white text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary-400)] focus:border-[var(--color-primary-400)] transition-all duration-200 hover:border-slate-400"
+                            placeholder={generateCandidateName(i)}
+                          />
+                        </div>
+                      ))}
+                    </div>
+
+                    <p className="text-xs text-slate-400 flex items-center gap-1">
+                      <Info size={12} />
+                      สามารถเปลี่ยนชื่อผู้สมัครได้ตามต้องการ
+                    </p>
+                  </div>
+                )}
+
+                {/* Removed Auto Generate Options UI as requested */}
+
+                {/* Action Button */}
+                <div className="pt-4">
+                  <button
+                    onClick={handleSubmit}
+                    className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-[var(--radius-button)] bg-slate-800 text-white font-semibold text-base hover:bg-slate-900 active:scale-[0.98] transition-all duration-200"
+                  >
+                    เริ่มจำลองการเลือกตั้ง
+                    <ChevronRight size={18} />
+                  </button>
+                </div>
+              </>
+            )}
 
           </div>
         </div>

@@ -20,9 +20,23 @@ export interface Election {
 
 export type VotingMethod = 'plurality' | 'borda' | 'irv' | 'condorcet';
 
-export type DataEntryMode = 'manual' | 'auto';
+export type DataEntryMode = 'manual' | 'auto' | 'demo';
 
 export type AutoGenerateMode = 'uniform' | 'realistic' | 'custom';
+
+// ==========================================
+// Preset Case Type — สำหรับชุดข้อมูลตัวอย่างการสาธิต
+// ==========================================
+
+export interface PresetCase {
+  id: string;
+  name: string;
+  description: string;
+  highlightText: string;       // สรุปว่ากรณีนี้แสดงอะไร
+  voterCount: number;
+  candidates: Candidate[];
+  ballots: Ballot[];
+}
 
 // ==========================================
 // Algorithm Result Types
