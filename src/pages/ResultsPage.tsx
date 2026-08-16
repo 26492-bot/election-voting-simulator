@@ -18,8 +18,11 @@ import {
   Scale,
   Zap,
   GitCompare,
+  Copy,
+  Table,
 } from 'lucide-react';
 import { useElection } from '../context/ElectionContext';
+import { PRESET_CASES } from '../data/presetCases';
 import { computePlurality } from '../algorithms/plurality';
 import { computeBorda } from '../algorithms/borda';
 import { computeIRV } from '../algorithms/irv';
@@ -210,6 +213,11 @@ export default function ResultsPage() {
 
       {/* Main Content — printable area */}
       <main ref={printRef} className="flex-1 p-4 sm:p-6 lg:p-8 max-w-[1400px] mx-auto w-full">
+        {/* ============================== */}
+        {/* Preference Profile Panel */}
+        {/* ============================== */}
+        <PreferenceProfilePanel />
+
         {/* ============================== */}
         {/* Summary Panel */}
         {/* ============================== */}
@@ -604,6 +612,121 @@ function ComparisonCard<T>({
         <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-1">อันดับ</p>
         <div className="space-y-0">
           {renderRanking(output)}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ==========================================
+// PreferenceProfilePanel — Table of ballots
+// ==========================================
+
+function PreferenceProfilePanel() {
+  const { election } = useElection();
+  if (!election) return null;
+
+  const candidateMap = new Map(election.candidates.map(c => [c.id, c.name]));
+  const presetCase = election.presetCaseId ? PRESET_CASES.find(c => c.id === election.presetCaseId) : null;
+
+  const handleCopy = () => {
+    if (!election) return;
+    
+    // Build text table
+    const headers = ['ผู้ลงคะแนน', ...Array.from({ length: election.candidates.length }, (_, i) => `อันดับ ${i + 1}`)];
+    const rows = election.ballots.map((b, i) => {
+      const voterName = `Voter ${i + 1}`;
+      const rankings = b.ranking.map(id => candidateMap.get(id) ?? id);
+      return [voterName, ...rankings].join('\t');
+    });
+    
+    const textToCopy = [headers.join('\t'), ...rows].join('\n');
+    navigator.clipboard.writeText(textToCopy);
+    alert('คัดลอกข้อมูลตารางเรียบร้อยแล้ว');
+  };
+
+  return (
+    <div className="mb-6 animate-fade-in">
+      <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+        {/* Header */}
+        <div className="px-5 py-4 border-b border-slate-200 bg-slate-50 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Table size={18} className="text-[var(--color-primary-600)]" />
+            <h2 className="font-bold text-slate-800 text-base">Preference Profile (โพรไฟล์ความชอบของผู้ลงคะแนน)</h2>
+          </div>
+          <button
+            onClick={handleCopy}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-slate-300 text-slate-600 rounded-lg text-xs font-semibold hover:bg-slate-100 transition-colors print:hidden"
+            title="คัดลอกเป็นตารางเพื่อวางใน Excel/Word"
+          >
+            <Copy size={14} />
+            <span className="hidden sm:inline">คัดลอกข้อมูล</span>
+          </button>
+        </div>
+
+        {/* Content */}
+        <div className="p-5">
+          {/* Metadata */}
+          <div className="flex flex-wrap gap-x-6 gap-y-2 mb-4 text-sm">
+            <div className="flex items-center gap-1.5">
+              <Users size={16} className="text-slate-400" />
+              <span className="font-semibold text-slate-700">จำนวนผู้ลงคะแนน:</span>
+              <span className="text-slate-600">{election.voterCount} คน</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <Users size={16} className="text-slate-400" />
+              <span className="font-semibold text-slate-700">จำนวนผู้สมัคร:</span>
+              <span className="text-slate-600">{election.candidates.length} คน</span>
+            </div>
+          </div>
+
+          {presetCase && (
+            <div className="mb-4 bg-amber-50 border border-amber-100 rounded-lg px-4 py-3 text-sm">
+              <p className="font-bold text-amber-800 mb-1">กรณีศึกษา: {presetCase.name}</p>
+              <p className="text-amber-700">{presetCase.description}</p>
+            </div>
+          )}
+
+          {/* Table */}
+          <div className="overflow-x-auto border border-slate-200 rounded-lg max-h-[400px] overflow-y-auto print:max-h-none print:overflow-visible">
+            <table className="w-full text-sm text-left">
+              <thead className="text-xs text-slate-700 uppercase bg-slate-100 sticky top-0 z-10 shadow-sm print:shadow-none">
+                <tr>
+                  <th className="px-4 py-3 font-bold border-r border-slate-200 bg-slate-100 whitespace-nowrap w-24">ผู้ลงคะแนน</th>
+                  {Array.from({ length: election.candidates.length }).map((_, i) => (
+                    <th key={i} className="px-4 py-3 font-semibold whitespace-nowrap min-w-[120px]">
+                      อันดับ {i + 1}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                {election.ballots.map((ballot, i) => (
+                  <tr key={i} className="hover:bg-slate-50 transition-colors">
+                    <td className="px-4 py-2 font-medium text-slate-600 border-r border-slate-100 whitespace-nowrap bg-white">
+                      Voter {i + 1}
+                    </td>
+                    {Array.from({ length: election.candidates.length }).map((_, rankIndex) => {
+                      const candidateId = ballot.ranking[rankIndex];
+                      const candidateName = candidateId ? (candidateMap.get(candidateId) ?? candidateId) : '-';
+                      return (
+                        <td key={rankIndex} className="px-4 py-2 text-slate-800 font-medium bg-white">
+                          {candidateName}
+                        </td>
+                      );
+                    })}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="mt-4 bg-blue-50 border-l-4 border-blue-500 p-3 rounded-r-lg">
+            <p className="text-xs text-blue-800 font-medium flex items-center gap-2">
+              <Scale size={14} />
+              Preference Profile ชุดนี้ถูกใช้เป็นข้อมูลนำเข้าเดียวกันสำหรับการคำนวณระบบการเลือกตั้งทั้ง 4 วิธี
+            </p>
+          </div>
         </div>
       </div>
     </div>

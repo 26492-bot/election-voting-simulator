@@ -16,6 +16,7 @@ export interface Election {
   voterCount: number;
   candidates: Candidate[];
   ballots: Ballot[];
+  presetCaseId?: string; // เพิ่มเพื่อเก็บ ID ของกรณีศึกษาถ้าโหลดมาจาก Demo Mode
 }
 
 export type VotingMethod = 'plurality' | 'borda' | 'irv' | 'condorcet';

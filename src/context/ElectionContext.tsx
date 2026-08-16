@@ -10,7 +10,7 @@ interface ElectionContextType {
   election: Election | null;
   currentMethod: VotingMethod;
   setCurrentMethod: (method: VotingMethod) => void;
-  createElection: (voterCount: number, candidates: Candidate[], ballots?: Ballot[]) => void;
+  createElection: (voterCount: number, candidates: Candidate[], ballots?: Ballot[], presetCaseId?: string) => void;
   updateBallot: (ballot: Ballot) => void;
   updateBallots: (ballots: Ballot[]) => void;
   removeBallot: (voterId: number) => void;
@@ -44,11 +44,12 @@ export function ElectionProvider({ children }: { children: ReactNode }) {
     }
   }, [election, isLoaded]);
 
-  const createElection = (voterCount: number, candidates: Candidate[], ballots: Ballot[] = []) => {
+  const createElection = (voterCount: number, candidates: Candidate[], ballots: Ballot[] = [], presetCaseId?: string) => {
     const newElection: Election = {
       voterCount,
       candidates,
       ballots,
+      presetCaseId,
     };
     setElection(newElection);
     saveElection(newElection);

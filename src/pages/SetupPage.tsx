@@ -149,7 +149,7 @@ export default function SetupPage() {
     const presetCase = PRESET_CASES.find(c => c.id === caseId);
     if (!presetCase) return;
 
-    createElection(presetCase.voterCount, presetCase.candidates, presetCase.ballots);
+    createElection(presetCase.voterCount, presetCase.candidates, presetCase.ballots, presetCase.id);
     navigate('/dashboard');
   };
 
